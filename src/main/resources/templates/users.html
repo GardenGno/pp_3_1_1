@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+
+        .row {
+            font-style: italic;
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<h2>All Users</h2>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Email</th>
+
+    </tr>
+    <tr th:each="user : ${allUsers}"
+        class="row">
+        <td th:utext="${user.getFirstName()}">Name</td>
+        <td th:utext="${user.getLastName()}">Lastname</td>
+        <td th:utext="${user.getEmail()}">Email</td>
+        <td>
+            <a th:href="@{/updateInfo(userId=${user.id})}">
+                <button>Update</button>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{/deleteUser(userId=${user.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<button
+        th:data-url="@{addNewUser}"
+        onclick="window.open(this.getAttribute('data-url'))">Add new user
+</button>
+
+</body>
+</html>
